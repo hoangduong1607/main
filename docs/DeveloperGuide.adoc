@@ -887,14 +887,14 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Add a video to recipe
+=== Use case: Searching for a specific type of food
 
 *MSS*
 
-1.  User requests to list recipes
-2.  RecipeBook shows a list of recipes
-3.  User requests to add a video URL to a specific recipe in the list
-4.  RecipeBook updates recipe to show an embedded video when recipe is selected
+1.  User types find “chicken”
+2.  RecipeBook shows a list of recipes that contain chicken
+3.  User clicks on a particular recipe
+4.  RecipeBook displays full recipe and details on the main area
 +
 Use case ends.
 
@@ -904,13 +904,6 @@ Use case ends.
 * 2a. The list is empty.
 +
 Use case ends.
-
-* 3a. The given URL is invalid.
-+
-[none]
-** 3a1. RecipeBook shows an error message.
-+
-Use case resumes at step 2.
 
 _{More to be added}_
 
