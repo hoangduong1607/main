@@ -858,17 +858,17 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `RecipeBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add a video to recipe
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list recipes
+2.  RecipeBook shows a list of recipes
+3.  User requests to add a video URL to a specific recipe in the list
+4.  RecipeBook updates recipe to show an embedded video when recipe is selected
 +
 Use case ends.
 
@@ -879,10 +879,35 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. The given URL is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. RecipeBook shows an error message.
++
+Use case resumes at step 2.
+
+=== Use case: Add a video to recipe
+
+*MSS*
+
+1.  User requests to list recipes
+2.  RecipeBook shows a list of recipes
+3.  User requests to add a video URL to a specific recipe in the list
+4.  RecipeBook updates recipe to show an embedded video when recipe is selected
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given URL is invalid.
++
+[none]
+** 3a1. RecipeBook shows an error message.
 +
 Use case resumes at step 2.
 
