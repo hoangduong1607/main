@@ -886,6 +886,7 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+[discrete]
 === Use case: Add a video to recipe
 
 *MSS*
