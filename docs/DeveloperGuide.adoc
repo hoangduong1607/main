@@ -271,7 +271,7 @@ image::StorageClassDiagram.png[width="800"]
 This section describes some noteworthy details on how certain features are implemented.
 
 [[Implementation-Configuration]]
-// tag::auto-compeltion[]
+// tag::auto-completion[]
 === Auto-completion
 ==== Current implementation
 
