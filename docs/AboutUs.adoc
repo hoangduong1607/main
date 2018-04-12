@@ -28,7 +28,7 @@ Responsibilities: Logic, UX, Storage, Model
 
 === Hoang Duong
 image::hoangduong1607.jpeg[width="144", align="left"]
-{empty}https://github.com/hoangduong1607[github] | <<johndoe#, portfolio>>
+{empty}https://github.com/hoangduong1607[github] | <<HoangDuong#, portfolio>>
 
 Role: FS Dev +
 Responsibilities: Logic, UI, Model

@@ -18,12 +18,16 @@ include::../UserGuide.adoc[tag=applicationDescription]
 === New feature: Auto-completion
 ==== Why?
 
+Without auto-completion feature, users need to spend lots of their precious time just to type long commands and think of what missing fields they need to complete their commands. Auto-completion helps users save their time and effort so that they can enjoy interesting features of the application.
+
 include::../UserGuide.adoc[leveloffset=1,tag=auto-completion]
 
 include::../DeveloperGuide.adoc[tag=auto-completion]
 
 === New feature: group and view_group commands
 ==== Why?
+
+This feature helps users manage their recipes more efficiently.
 
 include::../UserGuide.adoc[tag=group-command]
 include::../UserGuide.adoc[tag=view-group-command]
