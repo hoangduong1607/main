@@ -299,7 +299,7 @@ Suggestion list is built with a given list as a dictionary and last word in user
 
 [source,java]
 ----
-for width="750"tring suggestion : dictionary) {
+for (String suggestion : dictionary) {
     if (suggestion.startsWith(prefix)) {
         addSuggestion(suggestion);
     }
@@ -573,7 +573,7 @@ Below is the implementation of this method:
 
 [.not-print,source,java]
 ----
-public static boolean isValidImageUrlwidth="750"tring testUrl) {
+public static boolean isValidImageUrl(String testUrl) {
     URL imageUrl;
     try {
         imageUrl = new URL(testUrl);
@@ -609,7 +609,7 @@ Below is the implementation of `downloadImage()`:
 
 [.not-print, source,java]
 ----
-public static String downloadImagewidth="750"tring imageUrlString) {
+public static String downloadImage(String imageUrlString) {
     assert isValidImageUrl(imageUrlString);
 
     try {
@@ -658,7 +658,7 @@ As seen below, the URL is not a required parameter during the checking of prefix
 ----
 if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_INSTRUCTION, PREFIX_PREPARATION_TIME,
     PREFIX_INGREDIENT) || !argMultimap.getPreamble().isEmpty()) {
-    throw new ParseExceptionwidth="750"tring.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 }
 ----
 
@@ -713,7 +713,7 @@ The method for copying a string to the clipboard is implemented in the `_UiUtil_
 
 [source,java]
 ----
-public static void copyToClipboardwidth="750"tring string) {
+public static void copyToClipboard(String string) {
     Toolkit toolkit = Toolkit.getDefaultToolkit();
     Clipboard clipboard = toolkit.getSystemClipboard();
     StringSelection stringSelection = new StringSelection(string);
@@ -828,7 +828,7 @@ public static void saveAllImageFiles(ReadOnlyRecipeBook recipeBook, String fileP
     }
 }
 
-public static void saveImageFilewidth="750"tring imagePath, String imageFolderPath) {
+public static void saveImageFile(String imagePath, String imageFolderPath) {
     try {
         File imageToSave = new File(imagePath);
         File pathToNewImage = new File(imageFolderPath + imageToSave.getName());
@@ -908,7 +908,7 @@ As seen from above, all key combinations implemented consume the default effect 
 
 We are using `java.util.logging` package for logging. The `_LogsCenter_` class is used to manage the logging levels and logging destinations.
 
-* The logging level can be controlled using the `logLevel` setting in the configuration file width="750"ee <<Implementation-Configuration>>)
+* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
 * Currently log messages are output through the console and to a *.log* file.
 
