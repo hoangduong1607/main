@@ -66,3 +66,9 @@ https://github.com/CS2103JAN2018-F09-B2/main/pull/74[#74],
 https://github.com/CS2103JAN2018-F09-B2/main/pull/94[#94]
 
 ** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103JAN2018-F12-B4/main/issues/133[1], https://github.com/CS2103JAN2018-F12-B4/main/issues/134[2], https://github.com/CS2103JAN2018-F12-B4/main/issues/138[3])
+
+---
+
+ifndef::env-github[]
+include::../NavBar.adoc[]
+endif::[]
