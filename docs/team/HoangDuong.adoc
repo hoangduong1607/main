@@ -39,6 +39,7 @@ include::../DeveloperGuide.adoc[tag=auto-completion]
 These features help users manage their recipes more efficiently. It will be harder for users to manage their recipes when they have too many recipes. Allowing users to create custom groups of recipes provides a more convenient and flexible method for them to manage.
 
 include::../UserGuide.adoc[tag=group-command]
+
 include::../DeveloperGuide.adoc[tag=group-command]
 
 include::../UserGuide.adoc[tag=view-group-command]
