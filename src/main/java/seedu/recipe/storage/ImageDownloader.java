@@ -21,7 +21,7 @@ import seedu.recipe.commons.util.FileUtil;
 import seedu.recipe.model.recipe.Image;
 
 /**
- * A class that downloads images and saves them to the images folder
+ * Downloads images and saves them to the images folder
  */
 public class ImageDownloader {
 
@@ -29,6 +29,9 @@ public class ImageDownloader {
 
     /**
      * Returns true if {@code testUrl} is valid and links to an image
+     *
+     * @throws NoInternetConnectionException if there's no Internet connection while the app is trying to read
+     * from the URL.
      */
     public static boolean isValidImageUrl(String testUrl) throws NoInternetConnectionException {
         URL imageUrl;
@@ -115,7 +118,7 @@ public class ImageDownloader {
     }
 
     /**
-     * Checks if {@code filePath} exists or not. If not, create a file at {@code filePath} as well as any parent
+     * Checks if {@code filePath} exists or not. If not, creates a file at {@code filePath} as well as any parent
      * directory if necessary, then returns the File object.
      */
     private static File prepareImageFile(String filePath) throws IOException {

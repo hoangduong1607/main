@@ -407,15 +407,18 @@ Below is the implementation of the two operations:
 
 [.not-print,source,java]
 ----
-public void loadDefaultPage(boolean isDarkTheme) {
+public void loadDefaultPage(boolean isGirlTheme) {
     if (!isLoaded()) {
         URL defaultPage;
-        if (isDarkTheme) {
-            defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE_DARK);
+        if (isGirlTheme) {
+            defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE_GIRL);
         } else {
             defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE_LIGHT);
         }
         loadPage(defaultPage.toExternalForm());
+        logger.info("BrowserPanel is empty, changed theme and reloaded BrowserPanel.");
+    } else {
+        logger.info("BrowserPanel is not empty, changed theme without reloading BrowserPanel.");
     }
 }
 private void loadStyle(boolean darkTheme) {
@@ -1172,10 +1175,11 @@ public CommandResult execute() throws CommandException {
         return new CommandResult(String.format(MESSAGE_SUCCESS, noOfResult));
     }
 }
+@Subscribe
 private void handleInternetSearchRequestEvent(InternetSearchRequestEvent event) {
     logger.info(LogsCenter.getEventHandlingLogMessage(event));
-    if (event.wikiaQueryHandler.getQueryNumberOfResults() != 0) {
-        loadPage(event.wikiaQueryHandler.getRecipeQueryUrl());
+    if (event.getQueryNumberOfResults() != 0) {
+        loadPage(event.getRecipeQueryUrl());
     }
 }
 ----
@@ -1741,8 +1745,8 @@ Format: `remark INDEX r/[REMARK]`
 
 Examples:
 
-* `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first recipe to `Likes to drink coffee.`
+* `remark 1 r/This is a fictional recipe.` +
+Edits the remark for the first recipe to `This is a fictional recipe.`
 * `remark 1 r/` +
 Removes the remark for the first recipe.
 
@@ -1762,7 +1766,7 @@ Let's start by teaching the application how to parse a `remark` command. We will
 . Add new test method to link:{repoURL}/src/test/java/seedu/recipe/logic/parser/RecipeBookParserTest.java[`RecipeBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
 
 **[Step 2] Logic: Teach the app to accept 'remark' arguments.**
-Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
+Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/This is a fictional recipe.`
 
 ===== Main:
 
@@ -2142,25 +2146,25 @@ These instructions only provide a starting point for testers to work on; testers
 * Steps:
 .. Download the jar file and copy into an empty folder.
 .. Double-click the jar file.
-* Expected output: The GUI appears with 12 sample recipes. The window size may not be optimum. The GUI may not appear if JRE on the tester's machine doesn't work properly. In that case, the tester should launch the app using command line.
+* Expected outcome: The GUI appears with 12 sample recipes. The window size may not be optimum. The GUI may not appear if JRE on the tester's machine doesn't work properly. In that case, the tester should launch the app using command line.
 
 . Initial launch without Internet connection:
 * Steps:
 .. Delete all files in the folder except for the jar file.
 .. Launch the app without Internet connection.
-* Expected output: Each sample recipe will have a null image reference for the image field instead of an image as the app cannot connect to the Internet.
+* Expected outcome: Each sample recipe will have a null image reference for the image field instead of an image as the app cannot connect to the Internet.
 
 . Initial launch with Internet connection:
 * Steps:
 .. Delete all files in the folder except for the jar file.
 .. Launch the app with Internet connection.
-* Expected output: 12 images will be downloaded and displayed for the sample recipes.
+* Expected outcome: 12 images will be downloaded and displayed for the sample recipes.
 
 . Saving window preferences:
 * Steps:
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app.
-* Expected output: The most recent window size and location is retained.
+* Expected outcome: The most recent window size and location is retained.
 
 === Commands
 
@@ -2170,19 +2174,19 @@ Sample commands can be found in the cheatsheet in the User Guide. Here are some 
 * Steps:
 .. Disconnect your machine from the Internet.
 .. Execute a `search` command, for example, `*search chicken rice*`.
-* Expected output: The result box will say that ReciRecipé failed to search and ask for confirmation that the tester is connected to the Internet.
+* Expected outcome: The result box will say that ReciRecipé failed to search and ask for confirmation that the tester is connected to the Internet.
 
 . Searching without any arguments:
 * Steps:
 .. Type `*search*` in the command box then press kbd:[Enter].
-* Expected output: The result box will say that it is an invalid command and show the correct command format.
+* Expected outcome: The result box will say that it is an invalid command and show the correct command format.
 
 . Adding an online image without Internet connection:
 * Steps:
 .. Run `search hainanese chicken rice`, select the first result, run `parse` *but do not submit the `add` command*.
 .. Disconnect your machine from the Internet.
 .. Now execute the `add` command.
-* Expected output: The recipe will still be added normally as it should but the image field will take a null reference instead of the image URL as the app cannot download the image.
+* Expected outcome: The recipe will still be added normally as it should but the image field will take a null reference instead of the image URL as the app cannot download the image.
 
 === Missing/corrupted data
 
@@ -2190,19 +2194,19 @@ Sample commands can be found in the cheatsheet in the User Guide. Here are some 
 * Steps:
 .. Delete the data folder.
 .. Re-launch the app.
-* Expected output: The app will be initialized with 12 sample recipes.
+* Expected outcome: The app will be initialized with 12 sample recipes.
 
 . Dealing with corrupted data:
 * Steps:
 .. Open data/recipebook.xml, remove line 5, save the file.
 .. Re-launch the app.
-* Expected output: The app will be initialized with 12 sample recipes.
+* Expected outcome: The app will be initialized with 12 sample recipes.
 
 . Dealing with missing images:
 * Steps:
 .. Delete the data/images folder.
 .. Re-launch the app.
-* Expected output: All images will not display and all recipes will have a null image reference for the image field instead of the old file path.
+* Expected outcome: All images will not display and all recipes will have a null image reference for the image field instead of the old file path.
 
 [appendix]
 == Glossary

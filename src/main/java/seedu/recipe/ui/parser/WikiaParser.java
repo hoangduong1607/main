@@ -92,7 +92,7 @@ public class WikiaParser extends WebParser {
     }
 
     /**
-     * Assigns {@code categories} to the ElementS that contains the categories.
+     * Assigns {@code categories} to the Elements that contains the categories.
      */
     protected void getCategories() {
         categories = document.getElementsByClass(CATEGORY_CLASS_NAME);
@@ -161,7 +161,7 @@ public class WikiaParser extends WebParser {
     }
 
     /**
-     * Iterates Elements using an Iterator, add relevant ingredient Element to {@code elementsWithIngredientWithLink}
+     * Iterates Elements using an Iterator, adds relevant ingredient Element to {@code elementsWithIngredientWithLink}
      * and {@code elementsWithIngredient}.
      */
     private void populateIngredient(Iterator<Element> elementIterator) {
@@ -203,7 +203,7 @@ public class WikiaParser extends WebParser {
     }
 
     /**
-     * Iterates Elements using an Iterator, add relevant instruction Element to {@code elementsWithInstruction}.
+     * Iterates Elements using an Iterator, adds relevant instruction Element to {@code elementsWithInstruction}.
      */
     private void populateInstruction(Iterator<Element> elementIterator) {
         while (elementIterator.hasNext()) {
