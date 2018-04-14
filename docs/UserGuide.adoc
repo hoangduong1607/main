@@ -108,7 +108,7 @@ Words in upper case are the parameters to be supplied by the user. For example:
 * Press kbd:[Enter] while holding down kbd:[Shift] to add a new line to your input.
 * Press kbd:[Enter] to submit a command.
 * Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows while holding down kbd:[Ctrl] will display the previous and next input respectively in the command box.
-* Press kbd:[Ctrl]+kbd:[Tab]/kbd:[Tab] to quickly move the caret to previous/next field.
+* Press kbd:[Ctrl]+kbd:[Tab]/kbd:[Tab] to quickly move the caret to previous/next field. (*NOTE:* kbd:[Ctrl]+kbd:[Tab] may not work for Mac users.)
 // end::app-navigation[]
 
 // tag::auto-completion[]
@@ -126,6 +126,9 @@ Words in upper case are the parameters to be supplied by the user. For example:
 * The suggestion will be added to your input automatically.
 ** If you choose a command keyword, it will replace your current input with the command and possible field prefixes (may be none, some or all possible field prefixes, depending on command).
 ** If you choose a field prefix, it will replace the word right before the caret (i.e, the word used to find suggestion).
+
+[NOTE]
+If you choose auto-completion for a command, your input will be cleared and replaced by the command with field prefixes (if any).
 
 // end::auto-completion[]
 
@@ -268,18 +271,22 @@ Creates a group of one or multiple recipes by the index or indices used in the l
 Format: `group group_name/GROUP_NAME index/INDEX [index/INDEX]...`
 
 ****
+* Group name is case sensitive.
 * The index refers to the index number shown in the most recent listing.
 * The index *must be a positive integer*, e.g. "1, 2, 3, …"..
-* Only the name is searched.
-* Only full words will be matched e.g. *`find Chic`* will not match `_Chicken_`.
-* Recipes matching at least one keyword will be returned (i.e. "OR" search). E.g. *`find Chicken Pizza`* will return `_Chicken rice_` and `_Pizza_`.
 ****
+
+[NOTE]
+If your group name is the same as one of an existing group, the recipes listed in your command will be added to existing group. +
+If you want to avoid this situation, you are advised to use `view_group` command to check whether a group name exists before creating a recipe group.
 
 Examples:
 
 * *`list`* +
 *`group group_name/ My best index/ 1 index/ 3`* +
-Creates a group that contains 1st recipe and 3rd recipe and names the group as `_My best_`.
+Creates a group that contains 1st recipe and 3rd recipe and names the group as `_My best_`. +
+*`group group_name/ My best index/ 2`* +
+Adds 2nd recipe to `_My best_` group. `_My best_` now contains 1st recipe, 2nd recipe and 3rd recipe.
 // end::group-command[]
 
 === *`help`* : Viewing help
@@ -595,11 +602,18 @@ Updated data file will be uploaded to Dropbox with the name RecipeBook(1).xml.
 Views recipes inside a group.
 
 Format: `view_group GROUP_NAME`
+****
+* Group name is case sensitive.
+****
 
 Examples:
 
-* *`view_group My best`* +
-Lists all recipes inside `_My best_` group.
+* *`group group_name/ My best index/ 1 index/ 3`* +
+Creates `_My best_` group that contains 1st recipe and 3rd recipe. +
+*`view_group My best`* +
+Lists all recipes inside `_My best_` group (i.e, 1st recipe and 3rd recipe). +
+*`view_group my best`* +
+Shows an empty list and a message to inform that the group does not exist since group name is case sensitive (i.e, `_my best_` is different from `_My best_`).
 // end::view-group-command[]
 
 === Saving the data
@@ -764,7 +778,9 @@ _This is likely due to a tricky input that confuses our product. If you encounte
 * kbd:[F1] and kbd:[F2] don't work when the in-app browser is clicked. +
 _This is a known problem with current versions of Java. We have been looking into this problem and the issue might be resolved soon._
 * Big images make ReciRecipé laggy. +
-_Currently, ReciRecipé does not distinguish between large and small images. You should use images under 1MB as a workaround for now. This problem will be resolved in v2.0._
+_Currently, ReciRecipé does not distinguish between large and small images. You should use images under 1MB as a workaround for now. This problem will be resolved in v2.0._ +
+* Suggestion list (auto-completion) sometimes does not show below caret position. +
+_This is due to the limited support of `CommandBox` to get coordinates of caret inside it. We have tried to fix this but have not found an efficient solution. This problem will be resolved in v2.0. Currently, our solution is to show suggestion list at the bottom of `CommandBox` if the input text is long enough to cause the problem. If the input text is short, suggestion list will still be shown below caret position._
 //end:current-issues[]
 
 == Glossary

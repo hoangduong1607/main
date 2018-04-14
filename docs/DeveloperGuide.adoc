@@ -285,7 +285,7 @@ Key combination kbd:[Shift]+kbd:[Tab] is used to show suggestion pop-up. For oth
 ----
 private void handleKeyPress(KeyEvent keyEvent) {
     suggestionsPopUp.hideSuggestions();
-    if width="750"HOW_SUGGESTIONS_COMMAND.match(keyEvent)) {
+    if (SHOW_SUGGESTIONS_COMMAND.match(keyEvent)) {
         keyEvent.consume();
         suggestionsPopUp.showSuggestions();
     }
@@ -738,6 +738,50 @@ image::ADforShareCommand.jpg[width="800"]
 ** Pros: The recipe will be posted immediately on the user's Facebook wall using the *`share`* command. The user need not manually paste the recipe from the clipboard onto the post.
 ** Cons: The user *must* manually obtain their Facebook access key and input it into the application - this may raise security concerns (Facebook does not allow automatic posting of text even if permission is given by the user upon log in).
 // end::facebook-compatibility[]
+
+// tag::group-command[]
+=== Grouping recipes
+==== Current implementation
+
+Group is not a new object, it is a hidden attribute of a recipe. Each recipe has a list of all groups that the recipe is a member.
+
+[source,java]
+----
+    private final Set<GroupName> groupNames;
+----
+
+`GroupName` is similar to `Name`, but it is used for group, not for recipe.
+
+When user creates a group, all recipes with indexes given by user will be modified. The group name provided by user will be added to list of groups in those recipes. It is implemented as below:
+
+[source,java]
+----
+        List<Recipe> lastShownList = model.getFilteredRecipeList();
+
+        for (Index index : targetIndices) {
+            if (index.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
+            }
+            Recipe recipe = model.getFilteredRecipeList().get(index.getZeroBased());
+            recipe.addNewGroup(groupName);
+        }
+----
+
+As the result of this implementation, when user creates a group that has the same name as an existing group, recipes will be added into existing group, instead of creating a new group and replace all the recipes.
+
+*_This is a feature, not a bug!_* (Please refer to section below for more details.)
+
+==== Design considerations
+
+===== Aspect: Effects when create a duplicate group.
+
+* **Alternative 1 (current choice):** Recipes are added to existing group.
+** Pros: Make application more flexible. Users can create a group and update a group with a single command like this, in the situation that other commands to edit groups are not supported.
+** Cons: Create confusion for users who do not read _User Guide_ carefully.
+* **Alternative 2:** No change. Display a message to inform users that the group exists.
+** Pros: Give users the most intuitive behavior of the command.
+** Cons: Limit operations with groups, when other commands are not implementated.
+// end::group-command[]
 
 // tag::inserting-an-image[]
 === Inserting an image

@@ -1,8 +1,17 @@
 = Hoang Duong - Project Portfolio
+:toc:
+:toc-title:
+:toc-placement: preamble
+:experimental:
+:sectnums:
+:xrefstyle: short
+ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:repoURL: https://github.com/CS2103JAN2018-F09-B2/main/tree/master
 
-== PROJECT: ReciRecipé
+{nbsp} +
+*PROJECT: ReciRecipé*
 
 Welcome to my portfolio page for CS2103T project - ReciRecipé.
 
@@ -16,7 +25,7 @@ include::../UserGuide.adoc[tag=applicationDescription]
 == Summary of contributions
 
 === New feature: Auto-completion
-==== Why?
+==== Motivation
 
 Without auto-completion feature, users need to spend lots of their precious time just to type long commands and think of what missing fields they need to complete their commands. Auto-completion helps users save their time and effort so that they can enjoy interesting features of the application.
 
@@ -25,11 +34,13 @@ include::../UserGuide.adoc[leveloffset=1,tag=auto-completion]
 include::../DeveloperGuide.adoc[tag=auto-completion]
 
 === New feature: group and view_group commands
-==== Why?
+==== Motivation
 
-This feature helps users manage their recipes more efficiently.
+These features help users manage their recipes more efficiently. It will be harder for users to manage their recipes when they have too many recipes. Allowing users to create custom groups of recipes provides a more convenient and flexible method for them to manage.
 
 include::../UserGuide.adoc[tag=group-command]
+include::../DeveloperGuide.adoc[tag=group-command]
+
 include::../UserGuide.adoc[tag=view-group-command]
 
 == Other contributions
