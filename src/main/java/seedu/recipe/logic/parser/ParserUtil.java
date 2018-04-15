@@ -12,6 +12,7 @@ import seedu.recipe.commons.core.index.Index;
 import seedu.recipe.commons.exceptions.IllegalValueException;
 import seedu.recipe.commons.exceptions.NoInternetConnectionException;
 import seedu.recipe.commons.util.StringUtil;
+import seedu.recipe.model.file.Filename;
 import seedu.recipe.model.recipe.Calories;
 import seedu.recipe.model.recipe.CookingTime;
 import seedu.recipe.model.recipe.GroupName;
@@ -23,7 +24,6 @@ import seedu.recipe.model.recipe.PreparationTime;
 import seedu.recipe.model.recipe.Servings;
 import seedu.recipe.model.recipe.Url;
 import seedu.recipe.model.tag.Tag;
-import seedu.recipe.storage.model.Filename;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.

@@ -20,6 +20,8 @@ public class UploadRecipesEvent extends BaseEvent {
 ``` java
 package seedu.recipe.logic.commands;
 
+import com.dropbox.core.DbxException;
+
 import seedu.recipe.ui.util.CloudStorageUtil;
 
 /**
@@ -42,7 +44,7 @@ public class AccessTokenCommand extends Command {
     }
 
     @Override
-    public CommandResult execute() {
+    public CommandResult execute() throws DbxException {
         CloudStorageUtil.processAuthorizationCode(accessCode);
         return new CommandResult(MESSAGE_SUCCESS);
     }
@@ -175,7 +177,9 @@ public class TagCommand extends Command {
 ``` java
 package seedu.recipe.logic.commands;
 
-import static seedu.recipe.storage.model.Filename.MESSAGE_FILENAME_CONSTRAINTS;
+import static seedu.recipe.model.file.Filename.MESSAGE_FILENAME_CONSTRAINTS;
+
+import com.dropbox.core.DbxException;
 
 import seedu.recipe.commons.core.EventsCenter;
 import seedu.recipe.commons.events.ui.UploadRecipesEvent;
@@ -210,7 +214,7 @@ public class UploadCommand extends Command {
     }
 
     @Override
-    public CommandResult execute() {
+    public CommandResult execute() throws DbxException {
         if (CloudStorageUtil.hasAccessToken()) {
             CloudStorageUtil.upload();
             return new CommandResult(MESSAGE_SUCCESS);
@@ -329,6 +333,7 @@ import static seedu.recipe.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import seedu.recipe.commons.exceptions.IllegalValueException;
 import seedu.recipe.logic.commands.UploadCommand;
 import seedu.recipe.logic.parser.exceptions.ParseException;
+import seedu.recipe.model.file.Filename;
 
 /**
  * Parses input arguments and creates a new UploadCommand object
@@ -353,12 +358,61 @@ public class UploadCommandParser implements Parser<UploadCommand> {
             String xmlExtensionFilename = ParserUtil.parseFilename(filename);
             return new UploadCommand(xmlExtensionFilename);
         } catch (IllegalValueException ive) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, UploadCommand.MESSAGE_USAGE));
+            throw new ParseException(Filename.MESSAGE_FILENAME_CONSTRAINTS);
         }
     }
 }
 //@author
+```
+###### \java\seedu\recipe\model\file\Filename.java
+``` java
+package seedu.recipe.model.file;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.recipe.commons.util.AppUtil.checkArgument;
+
+/**
+ * Represents a Filename used to upload to Dropbox
+ * Guarantees: immutable; filename is valid as declared in {@link #isValidFilename(String)}
+ */
+public class Filename {
+
+    public static final String MESSAGE_FILENAME_CONSTRAINTS = "Filenames should not contain any"
+            + " incompatible characters";
+    private static final String FILENAME_VALIDATION_REGEX = "[^\\Q<>:/|.?\"\\*\\E\\s]+";
+
+    public final String filename;
+
+    /**
+     * Constructs a {@code Filename}
+     *
+     * @param filename a valid filename
+     */
+    public Filename(String filename) {
+        requireNonNull(filename);
+        checkArgument(isValidFilename(filename), MESSAGE_FILENAME_CONSTRAINTS);
+        this.filename = filename;
+    }
+
+    /**
+     * Returns true if a given string is a valid filename.
+     */
+    public static boolean isValidFilename(String test) {
+        return test.matches(FILENAME_VALIDATION_REGEX);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Filename // instanceof handles nulls
+                && this.filename.equals(((Filename) other).filename)); // state check
+    }
+
+    @Override
+    public int hashCode() {
+        return filename.hashCode();
+    }
+}
 ```
 ###### \java\seedu\recipe\model\recipe\IngredientContainsKeywordsPredicate.java
 ``` java
@@ -501,7 +555,7 @@ public class CloudStorageUtil {
      *
      * @throws DbxException
      */
-    public static void upload() {
+    public static void upload() throws DbxException {
         // Ensures access token has been obtained
         requireNonNull(CloudStorageUtil.getAccessToken());
 
@@ -515,7 +569,7 @@ public class CloudStorageUtil {
                     .uploadAndFinish(in);
             System.out.println("File has been uploaded");
         } catch (IOException | DbxException e) {
-            throw new AssertionError(UploadCommand.MESSAGE_FAILURE + " Invalid access token.");
+            throw new DbxException(UploadCommand.MESSAGE_FAILURE + " Make sure you have an Internet connection.");
         }
 
     }
@@ -525,7 +579,7 @@ public class CloudStorageUtil {
      * @param code given by Dropbox after user has allowed access
      * and converts it into the access token that can be used to upload files
      */
-    public static void processAuthorizationCode(String code) {
+    public static void processAuthorizationCode(String code) throws DbxException {
         // Converts authorization code to access token
         DbxAppInfo appInfo = new DbxAppInfo(APP_KEY, APP_SECRET);
         DbxWebAuth webAuth = new DbxWebAuth(config, appInfo);
@@ -533,7 +587,8 @@ public class CloudStorageUtil {
             DbxAuthFinish authFinish = webAuth.finishFromCode(code);
             accessToken = authFinish.getAccessToken();
         } catch (DbxException e) {
-            throw new AssertionError(UploadCommand.MESSAGE_FAILURE + " Invalid authorization code");
+            throw new DbxException(UploadCommand.MESSAGE_FAILURE + " Make sure you have an Internet connection"
+                    + " and have entered a  valid authorization code");
         }
         upload();
     }

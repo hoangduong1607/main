@@ -16,9 +16,10 @@ endif::[]
 
 By: `Team F09-B2`      Since: `Jan 2018`      Licence: `MIT`
 
-ifdef::env-github[]
-Please click https://recirecipe.netlify.com/userguide[here] to view the User Guide with full formatting.
-endif::[]
+[.print-only]
+Please visit the https://recirecipe.netlify.com/userguide[online page] to view the User Guide in full formatting.
+
+---
 
 == Introduction
 
@@ -37,9 +38,9 @@ This product only works on computers with monitors having resolution of at least
 [TIP]
 You can use kbd:[Ctrl]+kbd:[F] to search for words in the user guide.
 
-To start using ReciRecipé, please follow the steps below carefully.
+To start using ReciRecipé, please follow the steps below carefully:
 
-.  Ensure you have Java Runtime Environment (<<JRE>>) 1.8.0_60 or later installed in your Computer. You can download from http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html[here].
+.  Ensure you have Java Runtime Environment (<<JRE, JRE>>) 1.8.0_60 or later installed in your Computer. You can download from http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html[here].
 [NOTE]
 Having any Java 8 version is not enough. +
 This app will not work with earlier versions of Java 8.
@@ -54,7 +55,8 @@ image::JREDownload.PNG[width="500"]
 .. Then select the version according to what system you are running on. The file you need to download will be around 60-80MB in size. +
 +
 [NOTE]
-If you are using Windows, please download the Offline version. The installation file should end with _.exe_.
+If you are using Windows, please download the Offline version. The installation file should end with _.exe_. +
+If you don't know whether to download the x64 or x86 version, you can download and install both!
 +
 .  Download the latest _recipebook.jar_ link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Recipe Book.
@@ -73,7 +75,7 @@ Referring to <<recirecipe-gui>> above:
 E.g. typing `help` and pressing kbd:[Enter] will open the help window.
 
 [NOTE]
-If you counter any problems while using ReciRecipé, you might want to refer to <<faq>> to see common issues and the solutions.
+If you counter any problems while using ReciRecipé, you might want to refer to <<faq, the FAQ>>.
 
 [[Features]]
 == Features
@@ -93,9 +95,9 @@ Words in upper case are the parameters to be supplied by the user. For example:
 ** *_PREPARATION_TIME_* and *_COOKING_TIME_* fields accept a number of formats: `1h20m`, `1h20min`, `1 hour 20 minutes`, `80m`, `80min`, `80 mins`, etc. However, sticking to the most simple format `80m` is recommended.
 ** *_CALORIES_* and *_SERVINGS_* are positive numbers. E.g. `120`, `5000`, etc.
 ** *_URL_* takes a valid website address as its value. E.g. `http://google.com`.
-** *_IMAGE_* takes a valid image path as its value (E.g. for macOS: `/Users/administrator/Desktop/image.png`, for windows: `C:\Users\admin\image.png`). Or it can also be a valid image URL, for example, `https://i.imgur.com/FhRsgCK.jpg`.
-* Items in square brackets are optional e.g `name/NAME [tag/TAG]` can be used as *`name/Chicken rice tag/chicken`* or as *`name/Chicken rice`*.
-* Items with `...` after them can be used multiple times including zero times e.g. `[tag/TAG]...` can be used as `{nbsp}` (i.e. 0 times), *`tag/rice`*, *`tag/rice tag/chicken`*, etc.
+** *_IMAGE_* takes a valid image path as its value (E.g. for macOS: `/Users/administrator/Desktop/image.png`, for Windows: `C:\Users\admin\image.png`). Or it can also be a valid image URL, for example, `https://i.imgur.com/FhRsgCK.jpg`.
+* Items in square brackets are optional e.g. `name/NAME [tag/TAG]` can be used as *`name/Chicken rice tag/chicken`* or as *`name/Chicken rice`*.
+* Items with `...` after them can be used multiple times including zero times e.g. `[tag/TAG]...` can be used as `{nbsp}` (i.e. 0 times), *`tag/rice`*, *`tag/rice tag/chicken`*, or `ingredient KEYWORD [MORE_KEYWORDS]...` can be used as `ingredient chicken rice salt`.
 * Parameters can be in any order. E.g. if the command specifies `name/RECIPE_NAME instruction/INSTRUCTION`, `instruction/INSTRUCTION name/RECIPE_NAME` has the same effect.
 * White spaces after a slash are automatically trimmed. For example, `add name/ Chicken rice` and `add name/Chicken rice` are the same. However, the former is more visually pleasing.
 * You can split a command into multiple lines for ease of input.
@@ -674,11 +676,7 @@ As a work around, hold kbd:[Shift] and right click on any blank space in the fol
 .Windows context menu
 image::WindowsContext.PNG[width="276"]
 {nbsp} +
-Select "Open command window here" (earlier versions of Windows) or "Open PowerShell window here" (Windows 10), type in:
-[source]
-----
-java -jar recipebook.jar
-----
+Select *Open command window here* (earlier versions of Windows) or *Open PowerShell window here* (Windows 10), type in `java -jar recipebook.jar`. +
 After this step, you should get something like <<powershell>> or <<cmd>> depending on the version of Windows you are running:
 [[powershell]]
 .Windows PowerShell
@@ -693,7 +691,7 @@ Then press kbd:[Enter] to launch ReciRecipé.
 *A*: Please check if your device is connected to the Internet. Image downloading only works when there is an Internet connection.
 
 *Q*: I found a bug in your program, what should I do? +
-*A*: Please check <<current-issues>> to see whether your bug has been reported already. If it is a new bug, please https://github.com/CS2103JAN2018-F09-B2/main/issues[create a new issue in our repo] describing the problem you encountered as detailed as possible.
+*A*: Please check <<current-issues>> to see whether your bug has been reported already. If it is a new bug, please https://github.com/CS2103JAN2018-F09-B2/main/issues[create a new issue in our repo] describing the problem you encountered as detailed as possible and upload your log file when you create the issue. Usually, the log file has a name like _recipebook.log.0_ or _recipebook.log.1_. You can find the log file in the folder you store ReciRecipé.
 
 *Q*: I know how to code, how can I contribute to your project? +
 *A*: Code contributors are always appreciated! Please https://github.com/CS2103JAN2018-F09-B2/main/pulls[create a PR] with your contribution. You might want to take a look at the <<DeveloperGuide#,Developer Guide>> to get started.
@@ -722,9 +720,9 @@ Then press kbd:[Enter] to launch ReciRecipé.
 | *History*         |  `history`
                     |  *`history`*
 | *Ingredient search* |  `ingredient KEYWORD [MORE_KEYWORDS]...`
-                    |   E.g. *`ingredient chicken rice`*
+                    |   *`ingredient chicken rice`*
 | *Internet search* |  `search RECIPE_NAME`
-                    |   E.g. *`search hainanese chicken rice`*
+                    |   *`search hainanese chicken rice`*
 | *List*            |  `list`
                     |  *`list`*
 | *Parse*           |  `parse`
@@ -775,7 +773,7 @@ _A powerful text analyzer that can parse almost anything with high accuracy is o
 _We expect you to provide ReciRecipé with a correct and valid time value like `150m` instead of `1h90m`. More restrictive formats will be considered for v2.0._
 * Sometimes `add` command hangs ReciRecipé. +
 _This is likely due to a tricky input that confuses our product. If you encounter such an event while using ReciRecipé, please https://github.com/CS2103JAN2018-F09-B2/main/issues[send us a feedback] with the input that caused the problem._
-* kbd:[F1] and kbd:[F2] don't work when the in-app browser is clicked. +
+* kbd:[F1] and kbd:[F2] sometimes don't work. +
 _This is a known problem with current versions of Java. We have been looking into this problem and the issue might be resolved soon._
 * Big images make ReciRecipé laggy. +
 _Currently, ReciRecipé does not distinguish between large and small images. You should use images under 1MB as a workaround for now. This problem will be resolved in v2.0._ +

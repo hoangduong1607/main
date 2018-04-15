@@ -41,7 +41,7 @@ Java is a general-purpose computer-programming language that is concurrent, clas
 [[JRE]] JRE::
 ====
 Abbreviation of **Java Runtime Environment**. +
-You need this to run any applications developed in <<Java>>.
+You need this to run any applications developed in <<Java, Java>>.
 ====
 
 [[mainstream-os]] Mainstream OS::
